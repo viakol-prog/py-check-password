@@ -1,22 +1,23 @@
 from string import ascii_lowercase
+SPECIAL = set("$@#&!-_")
 
 
 def check_password(password: str) -> bool:
-    if len(password) not in range(8, 17):
+    if len(password) < 8 or len(password) > 16:
         return False
     has_upper = False
     has_digit = False
     has_special = False
-    for letter in password:
-        if letter.isalpha():
-            if letter.upper() == letter:
-                has_upper = True
-            if letter.lower() not in ascii_lowercase:
+    for ch in password:
+        if ch.isalpha():
+            if ch.lower() not in ascii_lowercase:
                 return False
-        elif letter.isdigit():
+            if ch.isupper():
+                has_upper = True
+        elif ch.isdigit():
             has_digit = True
-        elif letter in "$@#&!-_":
+        elif ch in SPECIAL:
             has_special = True
         else:
             return False
-    return all([has_upper, has_digit, has_special])
+    return has_upper and has_digit and has_special
