@@ -19,11 +19,11 @@ from app.main import check_password
     ("Exclaim!A1a", True),
     ("Dash-A1a1", True),
 ])
-def test_check_password_param(password, expected):
+def test_check_password_param(password: str, expected: bool) -> None:
     assert check_password(password) == expected
 
-def test_length_boundaries():
-    assert check_password("A1$a2345") == True
-    assert check_password("AbcdefghijkL1@") == True
-    assert check_password("A1$a234") == False
-    #assert check_password("AbcdefghijkL1@X") == False
+
+def test_length_boundaries() -> None:
+    assert check_password("A1$a2345")
+    assert check_password("AbcdefghijkL1@")
+    assert not check_password("A1$a234")
